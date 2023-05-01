@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <title>Hosts and Rentals</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="/rentals">Hosts and Rentals</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rentals">All Rentals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rentals/new">Add an Rental</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/hosts/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories = true) %}
+    <main class="container">
+        <div class="row">
+            <div class="col">
+                <form action="/rentals" method="post">
+                    <input type="hidden" name="host_id" value="{{ session.host_id }}">
+                    <input type="hidden" name="pic" value="Coming soon!">
+                    <!-- <div class="mb-3">
+                        <label for="pic" class="form-label">pic:</label>
+                        <input type="text" name="pic" id="pic" class="form-control" />
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'pic' %}
+                        <span class="form-text text-danger">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div> -->
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Rental address:</label>
+                        <input type="text" name="address" id="address" class="form-control" />
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'address' %}
+                        <span class="form-text text-danger">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="dropdown mb-3">
+                        <div>
+                            <label for="bedrooms">Bedrooms:</label>
+                            <select name="bedrooms" id="bedrooms">
+                                <option value="choose">Please Choose One</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5+</option>
+                            </select>
+                        </div>
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'bedrooms' %}
+                        <span class="form-text text-danger">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="dropdown mb-3">
+                        <div>
+                            <label for="bathrooms">Bathrooms:</label>
+                            <select name="bathrooms" id="bathrooms">
+                                <option value="choose">Please Choose One</option>
+                                <option value="0">0</option>
+                                <option value="1">1/2</option>
+                                <option value="2">1</option>
+                                <option value="3">1 1/2</option>
+                                <option value="4">2</option>
+                                <option value="5">2+</option>
+                            </select>
+                        </div>
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'bathrooms' %}
+                        <span class="form-text text-danger">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="input-group row align-items-center mb-3">
+                        <div class="col-auto">
+                            <label for="price" class="form-label">Price:</label>
+                        </div>
+                        <div class="d-flex justify-content-center col-auto">
+                            <span class="input-group-text">$</span>
+                            <input name="price" type="number" price="price" id="price"
+                                class="form-control">
+                            <span class="input-group-text">.00</span>
+                        </div>
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'price' %}
+                        <span class="form-text text-danger">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto">
+                            <label for="duration" class="form-label">Price per?:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" name="duration" id="duration" class="form-control">
+                        </div>
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'duration' %}
+                        <span class="form-text text-danger">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="row align-items-center mb-3">
+                        <div class="col-auto">
+                            <label for="date_available" class="form-label">Date available:</label>
+                        </div>
+                        <div class="col-auto">
+                            <input type="date" name="date_available" id="date_available" class="form-control">
+                        </div>
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'date_available' %}
+                        <span class="form-text text-danger">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <fieldset>
+                                <legend class="h6">Pet Friendly?</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="pet_friendly" id="yes" value="1" />
+                                    <label class="form-check-label" for="yes"> Yes </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="pet_friendly" id="no" value="0"
+                                        checked />
+                                    <label class="form-check-label" for="no"> No </label>
+                                </div>
+                            </fieldset>
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            {% if category == 'pet_friendly' %}
+                            <span class="form-text text-danger">{{ message }}</span>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <fieldset>
+                                <legend class="h6">Short-term option?</legend>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="short_term" id="yes" value="1" />
+                                    <label class="form-check-label" for="yes"> Yes </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="short_term" id="no" value="0"
+                                        checked />
+                                    <label class="form-check-label" for="no"> No </label>
+                                </div>
+                            </fieldset>
+                            {% if messages %}
+                            {% for category, message in messages %}
+                            {% if category == 'short_term' %}
+                            <span class="form-text text-danger">{{ message }}</span>
+                            {% endif %}
+                            {% endfor %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea name="description" id="description" class="form-control"></textarea>
+                        {% if messages %}
+                        {% for category, message in messages %}
+                        {% if category == 'description' %}
+                        <span class="form-text text-danger">{{ message }}</span>
+                        {% endif %}
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <input type="submit" value="ADD RENTAL" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    {% endwith %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

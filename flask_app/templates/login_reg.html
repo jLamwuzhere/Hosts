@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <title>Login or Register for Our Site</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="/rentals">Hosts and Rentals</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rentals">All Rentals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rentals/new">Add a Rental</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if 'host_id' in session: %}
+                            <a class="nav-link" href="/hosts/logout">Logout</a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    {% with messages = get_flashed_messages(with_categories = true) %}
+    <div class="container mt-3">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">REGISTER</h5>
+                    <h6 class="text-center">Wecome. Please fill out the form fully to register.</h3>
+                        <div class="card-body">
+                            <form action="/hosts/register" method="post">
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="name" class="form-label">Hosting Name:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="text" name="name" id="name" class="form-control">
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'name' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="email" class="form-label">Email:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="text" name="email" id="email" class="form-control">
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'email' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="password" class="form-label">Password:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="password" name="password" id="password" class="form-control">
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'password' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="confirm_password" class="form-label">Confirm Password:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="password" name="confirm_password" id="confirm_password"
+                                            class="form-control">
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'confirm_password' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="dropdown mb-3">
+                                    <div>
+                                        <label for="rental_length">What is your rental term length?:</label>
+                                        <select name="rental_length" id="rental_length">
+                                            <option value="choose">Please Choose One</option>
+                                            <option value="yearly">Yearly</option>
+                                            <option value="weekly">Weekly</option>
+                                            <option value="monthly">Monthly</option>
+                                            <option value="3month">3-Month lease</option>
+                                            <option value="6month">6-Month lease</option>
+                                            <option value="contact_us">Other - see description</option>
+                                        </select>
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'rental_length' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <!-- <div class="mb-3">
+                                    <label for="payment_method" class="form-label">Payment methods accepted:</label>
+                                    <div class="form-check form-check-inline">
+                                        <input class="payment_method" type="checkbox" id="payment_method" 
+                                            value="cash">
+                                        <label class="form-check-label" for="cash">cash</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="payment_method"
+                                            value="check">
+                                        <label class="form-check-label" for="check">check</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="payment_method" type="checkbox" id="payment_method"
+                                            value="visa">
+                                        <label class="form-check-label" for="visa">VISA</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="payment_method"
+                                            value="mastercard">
+                                        <label class="form-check-label" for="mastercard">MasterCard</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="payment_method" type="checkbox" id="payment_method"
+                                            value="discover">
+                                        <label class="form-check-label" for="discover">Discover</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="payment_method" type="checkbox" id="payment_method"
+                                            value="paypal">
+                                        <label class="form-check-label" for="paypal">PayPal</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="payment_method"
+                                            value="cashapp">
+                                        <label class="form-check-label" for="cashapp">CashApp</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="payment_method" type="checkbox" id="payment_method"
+                                            value="venmo">
+                                        <label class="form-check-label" for="venmo">Venmo</label>
+                                    </div>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="checkbox" id="payment_method"
+                                            value="apple">
+                                        <label class="form-check-label" for="apple">ApplePay</label>
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'payment_method' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div> -->
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="payment_method" class="form-label">What payment methods do you accept?</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <textarea name="payment_method" payment_method="payment_method" id="payment_method" class="form-control"></textarea>
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'payment_method' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="dropdown mb-3">
+                                    <div>
+                                        <label for="rental_proxy">How close is the property caretaker?</label>
+                                        <select name="rental_proxy" id="rental_proxy">
+                                            <option value="choose">Please Choose One</option>
+                                            <option value="NA">Unavailable/Emergencies only</option>
+                                            <option value="onsite">Readily available/On-site</option>
+                                            <option value="30_minutes">Within 30 minutes</option>
+                                            <option value="few_hours">Within a few hours</option>
+                                            <option value="same_day">Same business day</option>
+                                            <option value="few_days">1-3 business days later</option>
+                                            <option value="within_week">Up to a week later</option>
+                                        </select>
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'rental_proxy' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="input-group row align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="deposit_required" class="form-label">Deposit Amount Required:</label>
+                                    </div>
+                                    <div class="d-flex justify-content-center col-auto">
+                                        <span class="input-group-text">$</span>
+                                        <input name="deposit_required" type="number" deposit_required="deposit_required" id="deposit_required"
+                                            class="form-control">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'deposit_required' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="phone" class="form-label">Phone:</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input type="text" name="phone" id="phone" class="form-control">
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'phone' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="row align-items-center mb-3">
+                                    <div class="col-auto">
+                                        <label for="website" class="label">Website(if applicable):</label>
+                                    </div>
+                                    <div class="col-auto">
+                                        <input name="website" type="url" website="website" id="website" class="form-control">
+                                    </div>
+                                    {% if messages %}
+                                    {% for category, message in messages %}
+                                    {% if category == 'website' %}
+                                    <span class="form-text text-danger">{{ message }}</span>
+                                    {% endif %}
+                                    {% endfor %}
+                                    {% endif %}
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <input type="submit" value="REGISTER" class="btn btn-primary">
+                                </div>
+                            </form>
+                        </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header">LOGIN</h5>
+                    <h6 class="text-center mt-3">Welcome back!</h6>
+                    <h6 class="text-center">If you are already registered with us, you may log-in below to update your host info, view your current listings, and more.</h6>
+                    <div class="card-body">
+                        <form action="/hosts/login" method="post">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email:</label>
+                                <input type="text" name="email" id="email" class="form-control">
+                                {% if messages %}
+                                {% for category, message in messages %}
+                                {% if category == 'log_email' %}
+                                <span class="form-text text-danger">{{ message }}</span>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label">Password:</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                                {% if messages %}
+                                {% for category, message in messages %}
+                                {% if category == 'log_password' %}
+                                <span class="form-text text-danger">{{ message }}</span>
+                                {% endif %}
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="d-flex justify-content-end">
+                                <input type="submit" value="LOGIN" class="btn btn-primary">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endwith %}
+</body>
+
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous" />
+    <title>Hosts and Hosts</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
+        <div class="container">
+            <a class="navbar-brand" href="/hosts">Hosts and Hosts</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rentals">All Rentals</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/rentals/new">Add a Rental</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/hosts/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <h5 class="card-header bg-primary">HOST DETAILS</h5>
+                    <div class="card-body ">
+                        <h4 class="card-title mb-4">{{ host.name }}</h4>
+                        <p>
+                            <strong>Email:</strong>
+                            {{ host.email }}
+                        </p>
+                        <p>
+                            <strong>Rental Length:</strong>
+                            {{ host.rental_length }}
+                        </p>
+                        <p>
+                            <strong>Preferred Payment Method(s):</strong>
+                            {{ host.payment_method }}
+                        </p>
+                        <p>
+                            <strong>Distance from Properties:</strong>
+                            {{ host.rental_proxy }}
+                        </p>
+                        <p>
+                            <strong>Deposit Amount Required:</strong>
+                            {{ host.deposit_required }}
+                        </p>
+                        <p>
+                            <strong>Phone:</strong>
+                            {{ host.phone }}
+                        </p>
+                        <p>
+                            <strong>Website:</strong>
+                            <a href="#">{{ host.website }}</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
