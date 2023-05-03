@@ -70,7 +70,7 @@
                                 <td>{{ '✔' if rental.short_term else '( ˘︹˘ )' }}</td>
                                 <!-- <td>{{ rental.description }}</td> -->
                                 <td>
-                                    <a href="/hosts/{{ host.id }}/info">{{ rental.host.name }}</a>
+                                    <a href="/hosts/{{ rental.host.id }}/info">{{ rental.host.name }}</a>
                                 </td>
                                 <td>
                                     {% if rental.host.id == session.host_id %}
